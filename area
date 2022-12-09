@@ -1,0 +1,47 @@
+import math
+
+
+# Area of Circle
+def circle(radius):
+    """
+    Method for calculating the area of a circle
+    :param radius:
+    :return: Returns the floating point value
+    """
+    circle_area = ((float(radius) ** 2) * math.pi)
+    return circle_area
+
+
+# Area of Rectangle
+def rectangle(length, width):
+    """
+    Method for calculating the area of a rectangle
+    :param length:
+    :param width:
+    :return: Returns the floating point values
+    """
+    rectangle_area = (float(length) * float(width))
+    return rectangle_area
+
+
+# Area of Square
+def square(length):
+    """
+    Method for calculating the area of a square
+    :param length:
+    :return: Returns the floating point value
+    """
+    sq_area = (float(length) ** 2)
+    return sq_area
+
+
+# Area of Triangle
+def triangle(base, height):
+    """
+    Method for calculating the area of a triangle
+    :param base:
+    :param height:
+    :return: Returns the floating point values
+    """
+    tri_area = ((1 / 2) * float(base) * float(height))
+    return tri_area
