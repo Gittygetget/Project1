@@ -1,0 +1,369 @@
+from tkinter import *
+from tkinter import font
+import area
+import perimeter
+
+
+class GUI:
+    """
+    A class that characterizes and creates the functions of the shapes calculator for the GUI application
+    """
+
+    def __init__(self, root):
+        """Method to set the title, radio buttons for the shape selection and measurement type, as well as the
+        frames, labels and entry boxes for every shape and measurement type"""
+        self.root = root
+
+        # Page Title
+        fontSize = font.Font(size=30)
+        titleLabel = Label(root, text='Shapes Calculator', bg='black', fg='white')
+        titleLabel['font'] = fontSize
+        titleLabel.pack()
+
+        # Shapes Selection
+        self.frame_shapes = Frame(self.root)
+        self.radio_1 = IntVar()
+        self.radio_1.set(0)
+        self.label_shapes = Label(self.frame_shapes, text='Shapes: ')
+        self.radio_circle = Radiobutton(self.frame_shapes, text='Circle', variable=self.radio_1, value=1,
+                                        command=self.clicked)
+        self.radio_square = Radiobutton(self.frame_shapes, text='Square', variable=self.radio_1, value=2,
+                                        command=self.clicked)
+        self.radio_rectangle = Radiobutton(self.frame_shapes, text='Rectangle', variable=self.radio_1, value=3,
+                                           command=self.clicked)
+        self.radio_triangle = Radiobutton(self.frame_shapes, text='Triangle', variable=self.radio_1, value=4,
+                                          command=self.clicked)
+        self.label_shapes.pack(padx=5, side='left')
+        self.radio_circle.pack(padx=5, side='left')
+        self.radio_square.pack(padx=5, side='left')
+        self.radio_rectangle.pack(padx=5, side='left')
+        self.radio_triangle.pack(padx=5, side='left')
+        self.frame_shapes.pack(anchor='n', pady=20)
+        self.frame_shapes.pack()
+
+        # Type of Measurement Selection
+        self.frame_type = Frame(self.root)
+        self.radio_2 = IntVar()
+        self.radio_2.set(0)
+        self.label_type = Label(self.frame_type, text='Type of Measurement: ')
+        self.radio_area = Radiobutton(self.frame_type, text='Area', variable=self.radio_2, value=1,
+                                      command=self.clicked)
+        self.radio_perimeter = Radiobutton(self.frame_type, text='Perimeter', variable=self.radio_2, value=2,
+                                           command=self.clicked)
+        self.label_type.pack(padx=5, side='left')
+        self.radio_area.pack(padx=5, side='left')
+        self.radio_perimeter.pack(padx=5, side='left')
+        self.frame_type.pack(anchor='n', pady=20)
+        self.frame_type.pack()
+
+        # Calculate Button
+        self.frame_calcButton = Frame(self.root)
+        self.button_calcButton = Button(self.frame_calcButton, text='Calculate', command=self.calculate)
+        self.button_calcButton.pack()
+        self.frame_calcButton.pack()
+
+        # Clear Button
+        self.frame_clearButton = Frame(self.root)
+        self.button_clearButton = Button(self.frame_clearButton, text='Clear', command=self.clear)
+        self.button_clearButton.pack()
+        self.frame_clearButton.pack()
+
+        # Area of Circle
+        self.frame_circleArea = Frame(self.root)
+        self.label_circleArea = Label(self.frame_circleArea, text='Radius: ')
+        self.entry_circleArea = Entry(self.frame_circleArea)
+
+        # Area of Square
+        self.frame_squareArea = Frame(self.root)
+        self.label_squareArea = Label(self.frame_squareArea, text='Length: ')
+        self.entry_squareArea = Entry(self.frame_squareArea)
+
+        # Area of Rectangle
+        self.frame_rectangleArea = Frame(self.root)
+        self.label_rectangleArea1 = Label(self.frame_rectangleArea, text='Length: ')
+        self.entry_rectangleArea1 = Entry(self.frame_rectangleArea)
+        self.label_rectangleArea2 = Label(self.frame_rectangleArea, text='Width: ')
+        self.entry_rectangleArea2 = Entry(self.frame_rectangleArea)
+
+        # Area of Triangle
+        self.frame_triangleArea = Frame(self.root)
+        self.label_triangleArea1 = Label(self.frame_triangleArea, text='Base: ')
+        self.entry_triangleArea1 = Entry(self.frame_triangleArea)
+        self.label_triangleArea2 = Label(self.frame_triangleArea, text='Height: ')
+        self.entry_triangleArea2 = Entry(self.frame_triangleArea)
+
+        # Perimeter of Circle
+        self.frame_circlePeri = Frame(self.root)
+        self.label_circlePeri = Label(self.frame_circlePeri, text='Radius: ')
+        self.entry_circlePeri = Entry(self.frame_circlePeri)
+
+        # Perimeter of Square
+        self.frame_squarePeri = Frame(self.root)
+        self.label_squarePeri = Label(self.frame_squarePeri, text='Length: ')
+        self.entry_squarePeri = Entry(self.frame_squarePeri)
+
+        # Perimeter of Rectangle
+        self.frame_rectanglePeri = Frame(self.root)
+        self.label_rectanglePeri1 = Label(self.frame_rectanglePeri, text='Length: ')
+        self.entry_rectanglePeri1 = Entry(self.frame_rectanglePeri)
+        self.label_rectanglePeri2 = Label(self.frame_rectanglePeri, text='Width: ')
+        self.entry_rectanglePeri2 = Entry(self.frame_rectanglePeri)
+
+        # Perimeter of Triangle
+        self.frame_trianglePeri = Frame(self.root)
+        self.label_trianglePeri1 = Label(self.frame_trianglePeri, text='Side 1: ')
+        self.entry_trianglePeri1 = Entry(self.frame_trianglePeri)
+        self.label_trianglePeri2 = Label(self.frame_trianglePeri, text='Side 2: ')
+        self.entry_trianglePeri2 = Entry(self.frame_trianglePeri)
+        self.label_trianglePeri3 = Label(self.frame_trianglePeri, text='Side 3: ')
+        self.entry_trianglePeri3 = Entry(self.frame_trianglePeri)
+
+        self.frame_textBox = Frame(self.root)
+        self.label_textBox = Label(self.frame_textBox, text='')
+        self.label_textBox.pack()
+        self.frame_textBox.pack()
+
+    def entry_removal(self):
+        """
+        Method to clear the entry boxes along with their labels and frames when the next measurement type or shape
+        is selected
+        """
+        # Text Box
+        self.label_textBox.config(text='')
+
+        # Circle Area
+        self.frame_circleArea.pack_forget()
+        self.label_circleArea.pack_forget()
+        self.entry_circleArea.pack_forget()
+        self.entry_circleArea.delete(0, END)
+
+        # Square Area
+        self.frame_squareArea.pack_forget()
+        self.label_squareArea.pack_forget()
+        self.entry_squareArea.pack_forget()
+        self.entry_squareArea.delete(0, END)
+
+        # Rectangle Area
+        self.frame_rectangleArea.pack_forget()
+        self.label_rectangleArea1.pack_forget()
+        self.entry_rectangleArea1.pack_forget()
+        self.label_rectangleArea2.pack_forget()
+        self.entry_rectangleArea2.pack_forget()
+        self.entry_rectangleArea1.delete(0, END)
+        self.entry_rectangleArea2.delete(0, END)
+
+        # Triangle Area
+        self.frame_triangleArea.pack_forget()
+        self.label_triangleArea1.pack_forget()
+        self.entry_triangleArea1.pack_forget()
+        self.label_triangleArea2.pack_forget()
+        self.entry_triangleArea2.pack_forget()
+        self.entry_triangleArea1.delete(0, END)
+        self.entry_triangleArea2.delete(0, END)
+
+        # Circle Perimeter
+        self.frame_circlePeri.pack_forget()
+        self.label_circlePeri.pack_forget()
+        self.entry_circlePeri.pack_forget()
+        self.entry_circleArea.delete(0, END)
+
+        # Square Perimeter
+        self.frame_squarePeri.pack_forget()
+        self.label_squarePeri.pack_forget()
+        self.entry_squarePeri.pack_forget()
+        self.entry_squarePeri.delete(0, END)
+
+        # Rectangle Perimeter
+        self.frame_rectanglePeri.pack_forget()
+        self.label_rectanglePeri1.pack_forget()
+        self.entry_rectanglePeri1.pack_forget()
+        self.label_rectanglePeri2.pack_forget()
+        self.entry_rectanglePeri2.pack_forget()
+        self.entry_rectanglePeri1.delete(0, END)
+        self.entry_rectanglePeri2.delete(0, END)
+
+        # Triangle Perimeter
+        self.frame_trianglePeri.pack_forget()
+        self.label_trianglePeri1.pack_forget()
+        self.entry_trianglePeri1.pack_forget()
+        self.label_trianglePeri2.pack_forget()
+        self.entry_trianglePeri2.pack_forget()
+        self.label_trianglePeri3.pack_forget()
+        self.entry_trianglePeri3.pack_forget()
+        self.entry_trianglePeri1.delete(0, END)
+        self.entry_trianglePeri2.delete(0, END)
+        self.entry_trianglePeri3.delete(0, END)
+
+    def clear(self):
+        """
+        Method to clear the entry boxes as well as remove the entry boxes and reset selection radio buttons for shape
+        selection and measurement type
+        """
+        self.label_textBox.config(text='')
+        self.radio_1.set(value=0)
+        self.radio_2.set(value=0)
+        self.entry_removal()
+
+    def calculate(self):
+        """
+        Method to perform the calculation for the shape and measurement type that is selected
+        """
+        self.label_textBox.config(text='')
+        shapeSelection = self.radio_1.get()
+        measurementType = self.radio_2.get()
+        try:  # Exception handling in case a non-numeric character is input into the entry box
+            # Circle Area
+            if shapeSelection == 1 and measurementType == 1:
+                radius = float(self.entry_circleArea.get())
+                if radius > 0:
+                    circleArea = area.circle(radius)
+                    self.label_textBox.config(text=f'Area of Circle: {circleArea}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Square Area
+            elif shapeSelection == 2 and measurementType == 1:
+                length = float(self.entry_squareArea.get())
+                if length > 0:
+                    squareArea = area.square(length)
+                    self.label_textBox.config(text=f'Area of Square: {squareArea}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Rectangle Area
+            elif shapeSelection == 3 and measurementType == 1:
+                length = float(self.entry_rectangleArea1.get())
+                width = float(self.entry_rectangleArea2.get())
+                if length > 0 and width > 0:
+                    rectangleArea = area.rectangle(length, width)
+                    self.label_textBox.config(text=f'Area of Rectangle: {rectangleArea}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Triangle Area
+            elif shapeSelection == 4 and measurementType == 1:
+                base = float(self.entry_triangleArea1.get())
+                height = float(self.entry_triangleArea2.get())
+                if base > 0 and height > 0:
+                    triangleArea = area.triangle(base, height)
+                    self.label_textBox.config(text=f'Area of Triangle: {triangleArea}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Circle Perimeter
+            elif shapeSelection == 1 and measurementType == 2:
+                radius = float(self.entry_circlePeri.get())
+                if radius > 0:
+                    circlePerimeter = perimeter.circle(radius)
+                    self.label_textBox.config(text=f'Perimeter of Circle: {circlePerimeter}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Square Perimeter
+            elif shapeSelection == 2 and measurementType == 2:
+                length = float(self.entry_squarePeri.get())
+                if length > 0:
+                    squarePerimeter = perimeter.square(length)
+                    self.label_textBox.config(text=f'Perimeter of Square: {squarePerimeter}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Rectangle Perimeter
+            elif shapeSelection == 3 and measurementType == 2:
+                length = float(self.entry_rectanglePeri1.get())
+                width = float(self.entry_rectanglePeri2.get())
+                if length > 0 and width > 0:
+                    rectanglePerimeter = perimeter.rectangle(length, width)
+                    self.label_textBox.config(text=f'Perimeter of Rectangle: {rectanglePerimeter}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+            # Triangle Perimeter
+            elif shapeSelection == 4 and measurementType == 2:
+                side1 = float(self.entry_trianglePeri1.get())
+                side2 = float(self.entry_trianglePeri2.get())
+                side3 = float(self.entry_trianglePeri3.get())
+                if side1 > 0 and side2 > 0 and side3 > 0:
+                    trianglePerimeter = perimeter.triangle(side1, side2, side3)
+                    self.label_textBox.config(text=f'Perimeter of Triangle: {trianglePerimeter}')
+                else:
+                    self.label_textBox.config(text=f'Must Enter Non-Zero Positive Number\n'
+                                                   f'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+        except:
+            self.label_textBox.config(text='Must Enter A Number\n'
+                                           'e.g., 1, 2, 3, 1.0, 2.0, 3.0')
+
+    def clicked(self):
+        """
+        Method to clear any previous entry boxes that were revealed, then reveal the entry box(es) for the shape
+        and measurement type that is selected
+        """
+        self.entry_removal()
+        # Shape and Type Selection
+        shapeSelection = self.radio_1.get()
+        measurementType = self.radio_2.get()
+        # Circle Area
+        if shapeSelection == 1 and measurementType == 1:
+            self.label_circleArea.pack(padx=5, side='left')
+            self.entry_circleArea.pack(padx=5, side='left')
+            self.frame_circleArea.pack(pady=10)
+
+        # Square Area
+        elif shapeSelection == 2 and measurementType == 1:
+            self.label_squareArea.pack(padx=5, side='left')
+            self.entry_squareArea.pack(padx=5, side='left')
+            self.frame_squareArea.pack(pady=10)
+
+        # Rectangle Area
+        elif shapeSelection == 3 and measurementType == 1:
+            self.label_rectangleArea1.pack(padx=5, side='left')
+            self.entry_rectangleArea1.pack(padx=5, side='left')
+            self.label_rectangleArea2.pack(padx=5, side='left')
+            self.entry_rectangleArea2.pack(padx=5, side='left')
+            self.frame_rectangleArea.pack(pady=10)
+
+        # Triangle Area
+        elif shapeSelection == 4 and measurementType == 1:
+            self.label_triangleArea1.pack(padx=5, side='left')
+            self.entry_triangleArea1.pack(padx=5, side='left')
+            self.label_triangleArea2.pack(padx=5, side='left')
+            self.entry_triangleArea2.pack(padx=5, side='left')
+            self.frame_triangleArea.pack(pady=10)
+
+        # Circle Perimeter
+        elif shapeSelection == 1 and measurementType == 2:
+            self.label_circlePeri.pack(padx=5, side='left')
+            self.entry_circlePeri.pack(padx=5, side='left')
+            self.frame_circlePeri.pack(pady=10)
+
+        # Square Perimeter
+        elif shapeSelection == 2 and measurementType == 2:
+            self.label_squarePeri.pack(padx=5, side='left')
+            self.entry_squarePeri.pack(padx=5, side='left')
+            self.frame_squarePeri.pack(pady=10)
+
+        # Rectangle Perimeter
+        elif shapeSelection == 3 and measurementType == 2:
+            self.label_rectanglePeri1.pack(padx=5, side='left')
+            self.entry_rectanglePeri1.pack(padx=5, side='left')
+            self.label_rectanglePeri2.pack(padx=5, side='left')
+            self.entry_rectanglePeri2.pack(padx=5, side='left')
+            self.frame_rectanglePeri.pack(pady=10)
+
+        # Triangle Perimeter
+        elif shapeSelection == 4 and measurementType == 2:
+            self.label_trianglePeri1.pack(padx=5, side='left')
+            self.entry_trianglePeri1.pack(padx=5, side='left')
+            self.label_trianglePeri2.pack(padx=5, side='left')
+            self.entry_trianglePeri2.pack(padx=5, side='left')
+            self.label_trianglePeri3.pack(padx=5, side='left')
+            self.entry_trianglePeri3.pack(padx=5, side='left')
+            self.frame_trianglePeri.pack(pady=10)
