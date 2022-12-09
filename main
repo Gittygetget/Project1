@@ -1,0 +1,11 @@
+from gui import *
+
+# Creating the GUI, resizing the GUI, and creating basic appearances for GUI
+root = Tk()
+root.title('Shapes Calculator')
+root.geometry('600x350')
+root.resizable(False, False)
+root.config(bg='white')
+widgets = GUI(root)
+
+root.mainloop()
