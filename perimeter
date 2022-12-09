@@ -1,0 +1,48 @@
+import math
+
+
+# Perimeter of Circle
+def circle(radius):
+    """
+    Method for calculating the perimeter of a circle
+    :param radius:
+    :return: Returns the floating point value
+    """
+    circle_peri = (2 * float(radius) * math.pi)
+    return circle_peri
+
+
+# Perimeter of Rectangle
+def rectangle(length, width):
+    """
+    Method for calculating the perimeter of a rectangle
+    :param length:
+    :param width:
+    :return: Returns the floating point values
+    """
+    rec_peri = ((2 * float(length)) + (2 * float(width)))
+    return rec_peri
+
+
+# Perimeter of Square
+def square(length):
+    """
+    Method for calculating the perimeter of a square
+    :param length:
+    :return: Returns the floating point value
+    """
+    square_peri = (4 * float(length))
+    return square_peri
+
+
+# Perimeter of Triangle
+def triangle(side1, side2, side3):
+    """
+    Method for calcuating the perimeter of a triangle
+    :param side1:
+    :param side2:
+    :param side3:
+    :return: Returns the floating point values
+    """
+    tri_peri = (float(side1) + float(side2) + float(side3))
+    return tri_peri
