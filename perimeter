@@ -5,7 +5,7 @@ import math
 def circle(radius):
     """
     Method for calculating the perimeter of a circle
-    :param radius:
+    :param radius: Radius of the circle
     :return: Returns the floating point value
     """
     circle_peri = (2 * float(radius) * math.pi)
@@ -16,8 +16,8 @@ def circle(radius):
 def rectangle(length, width):
     """
     Method for calculating the perimeter of a rectangle
-    :param length:
-    :param width:
+    :param length: Length of the rectangle
+    :param width: Width of the rectangle
     :return: Returns the floating point values
     """
     rec_peri = ((2 * float(length)) + (2 * float(width)))
@@ -28,7 +28,7 @@ def rectangle(length, width):
 def square(length):
     """
     Method for calculating the perimeter of a square
-    :param length:
+    :param length: Length of the square
     :return: Returns the floating point value
     """
     square_peri = (4 * float(length))
@@ -39,9 +39,9 @@ def square(length):
 def triangle(side1, side2, side3):
     """
     Method for calcuating the perimeter of a triangle
-    :param side1:
-    :param side2:
-    :param side3:
+    :param side1: Length of Side 1 of triangle
+    :param side2: Length of Side 2 of triangle
+    :param side3: Length of Side 3 of triangle
     :return: Returns the floating point values
     """
     tri_peri = (float(side1) + float(side2) + float(side3))
