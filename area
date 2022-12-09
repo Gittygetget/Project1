@@ -5,7 +5,7 @@ import math
 def circle(radius):
     """
     Method for calculating the area of a circle
-    :param radius:
+    :param radius: Radius of the circle
     :return: Returns the floating point value
     """
     circle_area = ((float(radius) ** 2) * math.pi)
@@ -16,8 +16,8 @@ def circle(radius):
 def rectangle(length, width):
     """
     Method for calculating the area of a rectangle
-    :param length:
-    :param width:
+    :param length: Length of the Rectangle
+    :param width: Width of the Rectangle
     :return: Returns the floating point values
     """
     rectangle_area = (float(length) * float(width))
@@ -28,7 +28,7 @@ def rectangle(length, width):
 def square(length):
     """
     Method for calculating the area of a square
-    :param length:
+    :param length: Length of the square
     :return: Returns the floating point value
     """
     sq_area = (float(length) ** 2)
@@ -39,8 +39,8 @@ def square(length):
 def triangle(base, height):
     """
     Method for calculating the area of a triangle
-    :param base:
-    :param height:
+    :param base: Base of the triangle
+    :param height: Height of the triangle
     :return: Returns the floating point values
     """
     tri_area = ((1 / 2) * float(base) * float(height))
